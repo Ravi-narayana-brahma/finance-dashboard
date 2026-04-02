@@ -79,22 +79,29 @@ export default function Charts({ transactions }) {
     };
 
     const commonOptions = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: isMobile ? "right" : "bottom",
-                align: isMobile ? "start" : "center",
-                labels: {
-                    color: "#64748b",
-                    font: { size: 12 }
-                }
+    responsive: true,
+    maintainAspectRatio: false, // 🔥 important
+
+    layout: {
+        padding: isMobile ? 10 : 0
+    },
+
+    plugins: {
+        legend: {
+            position: isMobile ? "left" : "bottom",
+            align: isMobile ? "start" : "center",
+            labels: {
+                color: "#64748b",
+                font: { size: isMobile ? 10 : 12 } 
             }
-        },
-        animation: {
-            duration: 800,
-            easing: "easeOutQuart"
         }
-    };
+    },
+
+    animation: {
+        duration: 800,
+        easing: "easeOutQuart"
+    }
+};
 
     const lineOptions = {
         ...commonOptions,
@@ -116,7 +123,14 @@ export default function Charts({ transactions }) {
             <div className="chart-card small">
                 <h3>Spending</h3>
                 <div className="chart-wrapper">
-                    <Pie data={pieData} options={commonOptions} />
+                    <Pie 
+                      data={pieData} 
+                      options={commonOptions} 
+                      style={{ 
+                        maxWidth: isMobile ? "180px" : "100%", 
+                        margin: "0 auto" 
+                      }} 
+                    />
                 </div>
             </div>
 
