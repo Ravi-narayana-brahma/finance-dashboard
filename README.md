@@ -8,7 +8,7 @@ This project was developed as part of a frontend assignment to demonstrate UI de
 
 ## 🚀 Live Demo
 
-👉 https://your-project.vercel.app
+👉 https://finance-dashboard-rnb.netlify.app/
 
 ## 📂 GitHub Repository
 
