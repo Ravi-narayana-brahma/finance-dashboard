@@ -80,7 +80,7 @@ export default function Charts({ transactions }) {
 
     const commonOptions = {
     responsive: true,
-    maintainAspectRatio: false, // 🔥 important
+    maintainAspectRatio: false, 
 
     layout: {
         padding: isMobile ? 10 : 0
@@ -102,7 +102,22 @@ export default function Charts({ transactions }) {
         easing: "easeOutQuart"
     }
 };
-
+const pieOptions = {
+  ...commonOptions,
+  plugins: {
+    ...commonOptions.plugins,
+    legend: {
+      position: isMobile ? "right" : "bottom",
+      align: "center",
+      labels: {
+        color: "#64748b",
+        font: { size: isMobile ? 10 : 12 },
+        boxWidth: isMobile ? 10 : 14, 
+        padding: isMobile ? 8 : 12
+      }
+    }
+  }
+};
     const lineOptions = {
         ...commonOptions,
         scales: {
