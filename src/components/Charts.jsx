@@ -10,6 +10,7 @@ import {
     Filler
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import { useState, useEffect } from "react";
 
 ChartJS.register(
     ArcElement,
@@ -23,22 +24,28 @@ ChartJS.register(
 );
 
 export default function Charts({ transactions }) {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
     const expenseData = transactions.filter(t => t.type === "expense");
 
-    /* ===== CATEGORY MAP ===== */
     const categoryMap = {};
     expenseData.forEach(t => {
         categoryMap[t.category] = (categoryMap[t.category] || 0) + t.amount;
     });
 
-    /* ===== BALANCE TREND ===== */
     const balanceArray = transactions.reduce((acc, t, i) => {
         const prev = acc[i - 1] || 0;
         acc.push(t.type === "income" ? prev + t.amount : prev - t.amount);
         return acc;
     }, []);
-
-    /* ===== PIE DATA ===== */
     const pieData = {
         labels: Object.keys(categoryMap),
         datasets: [
@@ -56,7 +63,6 @@ export default function Charts({ transactions }) {
         ]
     };
 
-    /* ===== LINE DATA ===== */
     const lineData = {
         labels: transactions.map(t => t.date),
         datasets: [
@@ -72,12 +78,12 @@ export default function Charts({ transactions }) {
         ]
     };
 
-    /* ===== COMMON OPTIONS ===== */
     const commonOptions = {
         responsive: true,
         plugins: {
             legend: {
-                position: "bottom",
+                position: isMobile ? "right" : "bottom",
+                align: isMobile ? "start" : "center",
                 labels: {
                     color: "#64748b",
                     font: { size: 12 }
