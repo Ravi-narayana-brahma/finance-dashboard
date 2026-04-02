@@ -483,6 +483,10 @@ body {
 .chart-wrapper {
   flex: 1;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 
