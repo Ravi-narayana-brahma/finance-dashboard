@@ -88,7 +88,7 @@ export default function Charts({ transactions }) {
 
     plugins: {
         legend: {
-            position: isMobile ? "left" : "bottom",
+            position: isMobile ? "right" : "bottom",
             align: isMobile ? "start" : "center",
             labels: {
                 color: "#64748b",
